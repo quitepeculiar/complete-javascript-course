@@ -46,6 +46,11 @@ const restaurant = {
       `Here is your delicious pasta dish from Classico Italiano, with ${ing1}, ${ing2}, ${ing3}`
     );
   },
+
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient);
+    console.log(otherIngredients);
+  },
 };
 
 restaurant.orderDelivery({
@@ -101,3 +106,37 @@ console.log(newRestaurantFranchise);
 // Making object copies
 const restaurantCopy = { ...restaurant };
 restaurantCopy.name = 'Ristorante Roma';
+
+// Spread operator, on the right side of the =
+const arrayMe = [1, 2, ...[3, 4]];
+
+// Rest pattern, because on left side of the =
+const [a, b, ...others] = [1, 2, 3, 4, 5];
+console.log(a, b, others);
+// prints 1 2 [3, 4, 5]
+
+const [pizza, , risotto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(pizza, risotto, otherFood);
+
+// Objects using the rest pattern
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+
+restaurant.orderPizza('mushrooms', 'onions', 'spinach', 'olives');
+
+// short circuiting with the || operator
+restaurant.numGuests = 23;
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+
+const guests2 = restaurant.numGuests || 10;
+
+// short circuiting with the && operator
+
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('mushrooms', 'spinach');
+}
+
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
